@@ -4,9 +4,11 @@ mongoose.set('debug', true);
 const Schema = mongoose.Schema;
 
 const inventorySchema = new Schema ({
-	name:{type:String, required: true},
-	what:{type:String, required: true},
-	year:{type:Number, required: true},
+	name:{type: String, required: true},
+	weight:{type: Number, required: true},
+	height:{type: Number, required: true},
+	price:{type: Number, required: true},
+	quantity:{type: Number, required: true}
 });
 
 
