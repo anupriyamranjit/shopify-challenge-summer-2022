@@ -1,19 +1,23 @@
 const express = require('express');
-let mongoose = require('mongoose');
-let config = require('./config');
+const database = require('./database');
+const compression = require('compression');
+
 
 // Constants
 const port = 8080;
 
 // App
 const app = express();
-app.get('/', (req, res) => {
-  res.send('Hello World 8');
-});
+app.use(express.json());
+app.use(compression());
 
-mongoose.connect('mongodb://db:27022')
-  .then(console.log("running"))
-  .catch(err => {
-    console.log(err)
-  })
+// Routes import
+const inventoryRouter = require('./api/inventory');
+const groupsRouter = require('./api/group');
+
+
+app.use('/api/inventory', inventoryRouter);
+app.use('/api/groups', groupsRouter);
+
+
 app.listen(port, () => { console.log(`Server is running on port ${port}`)});
