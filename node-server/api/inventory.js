@@ -11,22 +11,14 @@ router.route('/').get(async (req, res) => {
 
   })
 router.route('/addItem').post( async (req, res) => {
-    const name = req.body.name;
-    const weight = req.body.weight;
-    const price = req.body.price;
-    const quantity = 1;
-    const unique = req.body.unique;
-    let findItem = await Inventory.findOne({ name : req.body.name, unique : false }).exec()
-                 .catch(error => res.status(400).json('Error: ' + error))
-    console.log(findItem);
-    if(findItem != null){
-        findItem.quantity = findItem.quantity + 1;
-        await findItem.save().catch(error => res.status(400).json('Error: ' + error));
-    } else {
-    const new_item = new Inventory({name,weight,price,quantity,unique});
-    new_item.save()
-    .then(() => res.json(`Inventory item: ${name} added`))
-    .catch(err => res.status(400).json('Error: ' + err))
+    try {
+        const name = req.body.name;
+        const quantity = req.body.quantity;
+        const new_item = new Inventory({name,quantity});
+        await new_item.save();
+        res.json(`Inventory item: ${name} added`);
+    } catch (e) {
+        res.status(400).json('Error: ' + e);
     }
 })
 
@@ -52,8 +44,6 @@ router.route('/update/:id').post(async (req, res) => {
     try {
         foundItem = await Inventory.findById(req.params.id);
         foundItem.name = req.body.name;
-        foundItem.weight = req.body.weight;
-        foundItem.price = req.body.price;
         foundItem.save();
         res.json(`Inventory with id ${req.params.id} is updated`);
     } catch(e) {

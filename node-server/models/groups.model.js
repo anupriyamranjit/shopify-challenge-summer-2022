@@ -4,7 +4,7 @@ mongoose.set('debug', true);
 const Schema = mongoose.Schema;
 
 const groupSchema = new Schema ({
-	name:{type: String, required: true},
+	name:{type: String, required: true, dropDups: true},
 });
 
 
