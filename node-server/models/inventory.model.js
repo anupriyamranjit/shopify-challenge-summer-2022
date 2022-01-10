@@ -8,7 +8,8 @@ const inventorySchema = new Schema ({
 	weight:{type: Number, required: true},
 	price:{type: Number, required: true},
 	quantity:{type: Number, required: true},
-	unique:{type: Boolean, required: true}
+	unique:{type: Boolean, required: true},
+	group:{type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: false}
 });
 
 

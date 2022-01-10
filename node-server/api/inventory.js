@@ -48,4 +48,17 @@ router.route('/:id').delete(async (req, res) => {
     }
 })
 
+router.route('/update/:id').post(async (req, res) => {
+    try {
+        foundItem = await Inventory.findById(req.params.id);
+        foundItem.name = req.body.name;
+        foundItem.weight = req.body.weight;
+        foundItem.price = req.body.price;
+        foundItem.save();
+        res.json(`Inventory with id ${req.params.id} is updated`);
+    } catch(e) {
+        res.status(400).json('Error: ' + e);
+    }
+})
+
   module.exports = router;
