@@ -1,23 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState} from "react";
+import TextField from '@mui/material/TextField';
+import { InputLabel, MenuItem, Select, Button } from '@mui/material';
+
 
 function App() {
+  const [groups, setGroups] = useState([]);
+  const [groupPicked, setGroupPicked] = useState(0);
+  const handleChange = (event) => {
+    setGroupPicked(event.target.value);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Inventory</h1>
+      <TextField id="outlined-basic" label="Name" variant="outlined" />
+      <br/>
+      <br/>
+      <TextField id="outlined-basic" label="Quantity" variant="outlined" />
+      <br/>
+      <br/>
+      <InputLabel id="demo-simple-select-label">Group</InputLabel>
+      <Select
+        style={{minWidth: 200}}
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={groupPicked}
+        label="Group"
+        onChange={handleChange}
+      >
+        <MenuItem value={10}>Ten</MenuItem>
+        <MenuItem value={20}>Twenty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem>
+      </Select>
+      <br/>
+      <br/>
+
+      <Button variant="outlined">Submit</Button>
+
     </div>
   );
 }
