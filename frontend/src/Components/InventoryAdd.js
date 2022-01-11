@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import TextField from '@mui/material/TextField';
 import { InputLabel, MenuItem, Select, Button } from '@mui/material';
+import '../App.css';
 
 function InventoryAdd() {
   const [groups, setGroups] = useState([]);
@@ -9,7 +10,7 @@ function InventoryAdd() {
     setGroupPicked(event.target.value);
   };
   return (
-    <div>
+    <div className="App">
       <h1>Inventory</h1>
       <TextField id="outlined-basic" label="Name" variant="outlined" />
       <br/>
