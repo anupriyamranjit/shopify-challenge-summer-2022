@@ -13,8 +13,8 @@ router.route('/').get(async (req, res) => {
 
   router.route('/addGroup').post(async (req, res) => {
     try {
-        const groupName = req.body.groupname;
-        const new_group = new Groups({groupName});
+        const name = req.body.name;
+        const new_group = new Groups({name});
         await new_group.save();
         res.json("New Group Added");
     } catch(e){
