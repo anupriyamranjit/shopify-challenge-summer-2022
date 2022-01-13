@@ -1,6 +1,7 @@
 const express = require('express');
 const database = require('./database');
 const compression = require('compression');
+const cors = require('cors');
 
 
 // Constants
@@ -10,10 +11,11 @@ const port = 8080;
 const app = express();
 app.use(express.json());
 app.use(compression());
+app.use(cors());
 
 // Routes import
 const inventoryRouter = require('./api/inventory');
-const groupsRouter = require('./api/group');
+const groupsRouter = require('./api/groups');
 
 
 app.use('/api/inventory', inventoryRouter);

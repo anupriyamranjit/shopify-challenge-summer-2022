@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import InventoryAdd from './Components/InventoryAdd';
 import InventoryList from './Components/InventoryList';
+import GroupAdd from './Components/GroupAdd';
+import GroupList from './Components/GroupList';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -14,6 +16,8 @@ ReactDOM.render(
       <Route path="/" element={<App />} />
       <Route path="addItem" element={<InventoryAdd/>} />
       <Route path="viewItem" element={<InventoryList/>} />
+      <Route path="addGroup" element={<GroupAdd/>} />
+      <Route path="viewGroups" element={<GroupList/>} />
     </Routes>
     </BrowserRouter>
   </React.StrictMode>,
