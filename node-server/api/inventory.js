@@ -3,7 +3,7 @@ let Inventory = require('../models/inventory.model');
 const router = express.Router();
 router.route('/').get(async (req, res) => {
     try {
-        const item = await Inventory.find();
+        const item = await Inventory.find().populate('group');
         res.json(item);
     } catch(e){
         res.status(400).json("Error: " + e)
@@ -14,8 +14,17 @@ router.route('/addItem').post( async (req, res) => {
     try {
         const name = req.body.name;
         const quantity = req.body.quantity;
-        const new_item = new Inventory({name,quantity});
+        const group = req.body.group;
+        let new_item
+        if(group){
+            new_item = new Inventory({name,quantity,group});
+            
+        } else {
+            new_item = new Inventory({name,quantity});
+        }
         await new_item.save();
+        
+        
         res.json(`Inventory item: ${name} added`);
     } catch (e) {
         res.status(400).json('Error: ' + e);
