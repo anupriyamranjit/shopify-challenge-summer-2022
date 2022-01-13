@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import TextField from '@mui/material/TextField';
 import { InputLabel, MenuItem, Select, Button } from '@mui/material';
 import '../App.css';
@@ -6,19 +6,37 @@ import axios from "axios";
 
 
 function InventoryAdd() {
-  const [groups, setGroups] = useState([]);
+  const [groups, setGroups] = useState();
   const [inventoryName, setInventoryName] = useState("");
   const [inventoryQuantity, setInventoryQuantity] = useState(1);
   const [groupPicked, setGroupPicked] = useState(0);
 
   const handleSubmit = () => {
-    axios.post("http://localhost:8080/api/inventory/addItem",{
-      name: inventoryName,
-      quantity: inventoryQuantity
-    })
+    console.log(groupPicked);
+    let finalObject = {};
+    if(groupPicked != null){
+      finalObject = {
+        name: inventoryName,
+        quantity: inventoryQuantity,
+        group: groupPicked
+      }
+    } else {
+      finalObject = {
+        name: inventoryName,
+        quantity: inventoryQuantity
+      }
+    }
+    console.log(finalObject);
+    axios.post("http://localhost:8080/api/inventory/addItem", finalObject)
     .then((response) => console.log(response))
     .catch((e) => console.error(e))
   }
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/groups")
+    .then((response) => setGroups(response.data))
+    .catch((e) => console.error(e))
+  },[]);
+    
 
   return (
     <div className="App">
@@ -36,10 +54,9 @@ function InventoryAdd() {
         id="demo-simple-select"
         value={groupPicked}
         label="Group"
+        onChange={(e) => setGroupPicked(e.target.value)}
       >
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        {groups && groups.map((group,i) => <MenuItem key={i} value={group._id} > {group.name} </MenuItem>)}
       </Select>
       <br/>
       <br/>
