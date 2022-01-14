@@ -9,10 +9,9 @@ function InventoryAdd() {
   const [groups, setGroups] = useState();
   const [inventoryName, setInventoryName] = useState("");
   const [inventoryQuantity, setInventoryQuantity] = useState(1);
-  const [groupPicked, setGroupPicked] = useState(0);
+  const [groupPicked, setGroupPicked] = useState();
 
   const handleSubmit = () => {
-    console.log(groupPicked);
     let finalObject = {};
     if(groupPicked != null){
       finalObject = {
@@ -26,7 +25,6 @@ function InventoryAdd() {
         quantity: inventoryQuantity
       }
     }
-    console.log(finalObject);
     axios.post("http://localhost:8080/api/inventory/addItem", finalObject)
     .then((response) => console.log(response))
     .catch((e) => console.error(e))
