@@ -8,6 +8,7 @@ import GroupAdd from './Components/GroupAdd';
 import GroupList from './Components/GroupList';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import InventoryUpdate from './Components/InventoryUpdate';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route path="viewItem" element={<InventoryList/>} />
       <Route path="addGroup" element={<GroupAdd/>} />
       <Route path="viewGroups" element={<GroupList/>} />
+      <Route path="update/:id" element={<InventoryUpdate/>} />
     </Routes>
     </BrowserRouter>
   </React.StrictMode>,
