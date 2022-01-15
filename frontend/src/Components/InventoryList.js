@@ -9,6 +9,7 @@ function InventoryList() {
   useEffect(() => {
       axios.get("http://localhost:8080/api/inventory")
       .then((response) => setItems(response.data))
+      console.log(items)
   }, [])
 
   const handleDelete = (id) => {
@@ -23,7 +24,7 @@ function InventoryList() {
           <IconButton>
             <CloseIcon onClick={() => handleDelete(item._id)}/>
           </IconButton>
-            <p key={i} >{item.name} : {item.quantity}</p>
+            <p key={i} > {item.name}  { item.hasOwnProperty('group') && "in Group " + item.group.name} : {item.quantity}</p>
           </>)
         )}
     </div>
