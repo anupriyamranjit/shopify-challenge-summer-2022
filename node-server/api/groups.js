@@ -1,5 +1,6 @@
 const express = require('express');
 let Groups = require('../models/groups.model');
+const Inventory = require('../models/inventory.model');
 const router = express.Router();
 
 router.route('/').get(async (req, res) => {
@@ -16,7 +17,7 @@ router.route('/').get(async (req, res) => {
         const name = req.body.name;
         const new_group = new Groups({name});
         await new_group.save();
-        res.json("New Group Added");
+        res.json(`New Group ${name} Added`);
     } catch(e){
         res.status(400).json("Error: " + e);
     }
@@ -34,8 +35,16 @@ router.route('/').get(async (req, res) => {
   router.route('/update/:id').post(async (req, res) => {
     try {
         foundGroup = await Groups.findById(req.params.id);
-        foundGroup.name = req.body.groupname
-        await foundGroup.save();
+        foundGroupExist = await Groups.find({"name": req.body.groupname});
+
+        if(foundGroupExist.length === 0){
+            foundGroup.name = req.body.groupname;
+            await foundGroup.save();
+        } else {
+            await Inventory.updateMany({"group": req.params.id}, {"$set":{"group": foundGroupExist[0]._id}});
+            await foundGroup.remove()
+        }
+
         res.json("Group Change Saved");
     } catch(e){
         res.status(400).json("Error: " + e);
