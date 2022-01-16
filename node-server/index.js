@@ -27,9 +27,5 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 });
 
-process.on('SIGTERM', () => {
-    console.log("Terminating Server")
-    app.close();
-  });
 
 module.exports = app
