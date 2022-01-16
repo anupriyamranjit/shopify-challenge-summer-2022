@@ -23,7 +23,6 @@ router.route('/addItem').post( async (req, res) => {
         } else {
             findItem = await Inventory.find({"name": name , "group": group})
         }
-        console.log(findItem);
         
         if(findItem.length === 0 && group === undefined){
             new_item = new Inventory({name,quantity});
