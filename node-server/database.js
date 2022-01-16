@@ -6,12 +6,15 @@ class Database {
         this._connect()
     }
     _connect() {
-        mongoose.connect(process.env.MONGO_URI)
-        .catch(err => { console.log(err) })
-        const connection = mongoose.connection;
-        connection.once('open',() =>{
-            console.log("MongoDB database connection established")
-        })
+        if(process.env.NODE_ENV === "test"){
+            console.log("Now in Testing")
+            mongoose.connect(process.env.MONGO_TEST)
+            .catch(err => { console.log(err) })
+        } else {
+            mongoose.connect(process.env.MONGO_URI)
+            .catch(err => { console.log(err) })
+        }
+        
     }
 }
 

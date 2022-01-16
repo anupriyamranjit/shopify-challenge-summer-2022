@@ -16,26 +16,38 @@ router.route('/addItem').post( async (req, res) => {
         const quantity = req.body.quantity;
         const group = req.body.group;
 
-        let new_item
-        findItem = await Inventory.find({"name": name})
-        if(findItem == null && group == null){
+        let findItem;
+        let new_item;
+        if(group === undefined){
+            findItem = await Inventory.find({"name": name})
+        } else {
+            findItem = await Inventory.find({"name": name , "group": group})
+        }
+        console.log(findItem);
+        
+        if(findItem.length === 0 && group === undefined){
             new_item = new Inventory({name,quantity});
-        } else if(group == null){
-            if(findItem.group == null){
-                findItem.quantity += quantity
+            await new_item.save();
+        } else if(group === undefined){
+            if(findItem[0].group === undefined){
+                findItem[0].quantity += quantity
+                await findItem[0].save()
             } else {
                 new_item = new Inventory({name,quantity});
+                await new_item.save();
             }
-        } else if(findItem == null) {
+        } else if(findItem.length === 0) {
             new_item = new Inventory({name,quantity,group});
+            await new_item.save();
         } else {
-            if(findItem.group == group){
-                findItem.quantity += quantity;
+            if(findItem[0].group.toString() === group){
+                findItem[0].quantity += quantity;
+                await findItem[0].save()
             } else {
                 new_item = new Inventory({name,quantity,group});
+                await new_item.save();
             }
         }
-        await new_item.save();
         res.json(`Inventory item: ${name} added`);
     } catch (e) {
         res.status(400).json('Error: ' + e);
