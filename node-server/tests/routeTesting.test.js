@@ -150,3 +150,90 @@ describe("POST Routes", () => {
 
 
 });
+
+describe("DELETE Routes", () => {
+  beforeAll(async () => {
+    await Inventory.deleteMany();
+    await Groups.deleteMany();
+  });
+
+
+  it('DELETE Inventory Quantity Above 0 No Group', async () => {
+    const item = await Inventory.create({
+      name: "DeleteTest Item One",
+      quantity: 21,
+    })
+    ob = { quantity : 20 }
+    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    expect(res.statusCode).toEqual(200)
+    const findItem = await Inventory.findById(item._id);
+    expect(findItem.quantity).toEqual(1);
+  })
+  it('DELETE Inventory Quantity Below 0 No Group', async () => {
+    const item = await Inventory.create({
+      name: "DeleteTest Item One",
+      quantity: 21,
+    })
+    ob = { quantity : 22 }
+    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    expect(res.statusCode).toEqual(200)
+    const findItem = await Inventory.findById(item._id);
+    expect(findItem).toBe(null);
+  })
+  it('DELETE Inventory Quantity Equal 0 No Group', async () => {
+    const item = await Inventory.create({
+      name: "DeleteTest Item One",
+      quantity: 21,
+    })
+    ob = { quantity : 21 }
+    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    expect(res.statusCode).toEqual(200)
+    const findItem = await Inventory.findById(item._id);
+    expect(findItem).toBe(null);
+  })
+  it('DELETE Inventory Quantity Above 0 Group', async () => {
+    const item = await Inventory.create({
+      name: "DeleteTest Item One",
+      quantity: 21,
+    })
+    ob = { quantity : 20 }
+    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    expect(res.statusCode).toEqual(200)
+    const findItem = await Inventory.findById(item._id);
+    expect(findItem.quantity).toEqual(1);
+  })
+  it('DELETE Inventory Quantity Below 0 Group', async () => {
+    const item = await Inventory.create({
+      name: "DeleteTest Item One",
+      quantity: 21,
+    })
+    ob = { quantity : 22 }
+    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    expect(res.statusCode).toEqual(200)
+    const findItem = await Inventory.findById(item._id);
+    expect(findItem).toBe(null);
+  })
+  it('DELETE Inventory Quantity Equal 0 Group', async () => {
+    const item = await Inventory.create({
+      name: "DeleteTest Item One",
+      quantity: 21,
+    })
+    ob = { quantity : 21 }
+    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    expect(res.statusCode).toEqual(200)
+    const findItem = await Inventory.findById(item._id);
+    expect(findItem).toBe(null);
+  })
+  it('DELETE Group', async () => {
+    const group = await Groups.create({
+      name: "DeleteTest Item One",
+      quantity: 21,
+    })
+    const res = await request(app).delete(`/api/groups/${group._id}`)
+    expect(res.statusCode).toEqual(200)
+    const findItem = await Groups.findById(group._id);
+    expect(findItem).toBe(null);
+  })
+
+
+});
