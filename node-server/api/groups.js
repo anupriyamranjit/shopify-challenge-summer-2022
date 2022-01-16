@@ -24,9 +24,7 @@ router.route('/').get(async (req, res) => {
 
   router.route('/:id').delete(async (req, res) => {
     try {
-        const groupName = req.body.groupname;
-        const new_group = new Groups({groupName});
-        await new_group.save();
+        foundGroup = await Groups.findByIdAndDelete(req.params.id);
         res.json("Group Deleted");
     } catch(e){
         res.status(400).json("Error: " + e);
