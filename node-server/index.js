@@ -2,6 +2,7 @@ const express = require('express');
 const database = require('./database');
 const compression = require('compression');
 const cors = require('cors');
+const request = require("supertest");
 
 
 // Constants
@@ -22,4 +23,13 @@ app.use('/api/inventory', inventoryRouter);
 app.use('/api/groups', groupsRouter);
 
 
-app.listen(port, () => { console.log(`Server is running on port ${port}`)});
+app.listen(port, () => { 
+    console.log(`Server is running on port ${port}`)
+});
+
+process.on('SIGTERM', () => {
+    console.log("Terminating Server")
+    app.close();
+  });
+
+module.exports = app
