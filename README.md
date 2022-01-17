@@ -23,3 +23,39 @@ My project for Summer 2022 Backend Developer Role
 
 
 
+## How to use
+To use this app we need localhost:3000 running with the application frontend
+
+# Create Inventory Item 
+
+# Delete Inventory Items
+
+# Update Inventory Items
+
+# Get All Inventory Items
+
+# Create Groups
+
+# Delete Groups 
+
+# Update Groups
+
+# Get All Groups 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
