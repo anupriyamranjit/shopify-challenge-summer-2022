@@ -56,10 +56,10 @@ router.route('/:id').get(async (req, res) => {
 })
 
 // DELETE Route: Delete Items
-router.route('/:id').delete(async (req, res) => {
+router.route('/:id/:quantity').delete(async (req, res) => {
     try {
         //Constants
-        const quantity = req.body.quantity;
+        const quantity = req.params.quantity;
         const id = req.params.id
 
         //Mongoose find by ID
@@ -108,9 +108,20 @@ router.route('/update/:id').patch(async (req, res) => {
                 await foundItem.save()
             } else {
                 // If a similar item already exist then the update will merge them
-                findItems[0].quantity += quantity;
-                await findItems[0].save()
-                await foundItem.remove()
+                if(findItems[0]._id.toString() !== id){
+                    console.log("Here")
+                    console.log(findItems[0]._id)
+                    console.log(id)
+                    findItems[0].quantity += quantity;
+                    await findItems[0].save()
+                    await foundItem.remove()
+                } else {
+                    foundItem.name = name;
+                    foundItem.quantity = quantity;
+                    foundItem.group = group;
+                    await foundItem.save()
+                }
+                
             }
         }
         res.json(`Inventory with id ${id} is updated`);
