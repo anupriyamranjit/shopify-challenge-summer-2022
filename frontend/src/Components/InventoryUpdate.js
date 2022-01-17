@@ -44,7 +44,7 @@ function InventoryUpdate() {
         quantity: inventoryQuantity
       }
     }
-    axios.post(`http://localhost:8080/api/inventory/update/${id}`, finalObject)
+    axios.patch(`http://localhost:8080/api/inventory/update/${id}`, finalObject)
     .then((response) => console.log(response))
     .catch((e) => console.error(e))
   }
@@ -69,7 +69,7 @@ function InventoryUpdate() {
         label="Group"
         onChange={(e) => setGroupPicked(e.target.value)}
       >
-         <MenuItem key={0} value={""} > None </MenuItem>
+         <MenuItem key={0} value={undefined}> None </MenuItem>
         {groups && groups.map((group,i) => <MenuItem key={i+1} value={group._id} > {group.name} </MenuItem>)}
       </Select>
       <br/>
