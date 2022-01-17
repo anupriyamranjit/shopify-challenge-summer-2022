@@ -23,24 +23,33 @@ My project for Summer 2022 Backend Developer Role
 
 
 
-## How to use
-To use this app we need localhost:3000 running with the application frontend
+# How to use
+To use this app we need localhost:3000 running with the application frontend and node-server running on localhost:8080
 
-# Create Inventory Item 
+## Create Inventory Item 
+To create an Inventory Item go to http://localhost:3000/addItem
 
-# Delete Inventory Items
+## Delete Inventory Items
+To delete an Inventory Item go to http://localhost:3000/viewItems
+then click the x button on top of any items in the list
+this will take you to http://localhost:3000/deleteItem/{id}
+where you can choose how many of that item you want to delete
 
-# Update Inventory Items
+If you delete more items then the quantity avaliable it will delete the item as a whole so you cannot see it anymore in http://localhost:3000/viewItems
 
-# Get All Inventory Items
+## Update Inventory Items
 
-# Create Groups
 
-# Delete Groups 
 
-# Update Groups
+## Get All Inventory Items
 
-# Get All Groups 
+## Create Groups
+
+## Delete Groups 
+
+## Update Groups
+
+## Get All Groups 
 
 
 
