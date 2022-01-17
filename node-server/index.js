@@ -1,6 +1,5 @@
 const express = require('express');
 const database = require('./database');
-const compression = require('compression');
 const cors = require('cors');
 const request = require("supertest");
 
@@ -11,7 +10,6 @@ const port = 8080;
 // App
 const app = express();
 app.use(express.json());
-app.use(compression());
 app.use(cors());
 
 // Routes import
