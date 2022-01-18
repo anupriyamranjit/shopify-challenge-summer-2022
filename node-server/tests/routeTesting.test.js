@@ -441,4 +441,34 @@ describe.only("PATCH Routes", () => {
     expect(findInvThree.name).toBe("Item Eighteen")
     expect(findInvThree.group).toEqual(GroupTest._id)
   })
+  it("PATCH same item ", async () => {
+    const GroupSix = await Groups.find({name: "Group Test"});
+    const MakeInventory = await Inventory.create({
+      name: "Item Ten",
+      quantity: 23,
+      group: GroupSix[0]._id
+    })
+    updatedData = {
+      name: MakeInventory.name,
+      quantity: MakeInventory.quantity,
+      group: GroupSix[0]._id
+    }
+    const res = await request(app).patch(`/api/inventory/update/${MakeInventory._id}`).send(updatedData)
+    expect(res.statusCode).toEqual(200);
+    findInv = await Inventory.findById(MakeInventory._id);
+    expect(findInv.name).toBe("Item Ten")
+    expect(findInv.quantity).toBe(23)
+    expect(findInv.group).toEqual(GroupSix[0]._id)
+
+  })
+    it("PATCH same group ", async () => {
+      const GroupSix = await Groups.create({name: "Group Fifteen"});
+      updatedData = {
+        groupname: "Group Fifteen",
+      }
+      const res = await request(app).patch(`/api/groups/update/${GroupSix._id}`).send(updatedData)
+      expect(res.statusCode).toEqual(200);
+      findGroup = await Groups.findById(GroupSix._id);
+      expect(findGroup.name).toBe("Group Fifteen")
+    })
 })
