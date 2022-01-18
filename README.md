@@ -81,7 +81,7 @@ To view all groups  go to http://localhost:3000/viewGroups,
 If you want to look at the tests I implemented throughout my building process look at routingTesting.js inside the testing folder 
 Additionally, I used an enviromental variable to change the database I was using for testing
 
-## Guiding Philochiy 
+## Guiding Philosophy
 Merge when possible, whenever 2 items are in the same group/ both dont have a group and have the same name it merges the quantities together 
 
 ## Assumption Made
