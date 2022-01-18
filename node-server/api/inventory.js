@@ -28,6 +28,9 @@ router.route('/addItem').post( async (req, res) => {
         let findItem;
         let new_item;
 
+        if(quantity <= 0){
+            throw "Quantity must be greater then 0"
+        }
         // Mongoose find if it exists
         findItem = await Inventory.find({"name": name, "group": group})
         if(findItem.length === 0) {
@@ -61,7 +64,7 @@ router.route('/:id/:quantity').delete(async (req, res) => {
         //Constants
         const quantity = req.params.quantity;
         const id = req.params.id
-
+ 
         //Mongoose find by ID
         foundItem = await Inventory.findById(id);
 

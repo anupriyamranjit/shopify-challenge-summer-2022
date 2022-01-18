@@ -1,0 +1,12 @@
+version: "1.1"
+
+services:
+  app:
+    container_name: react-project
+    image: react-project
+    build:
+      context: .
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:3000

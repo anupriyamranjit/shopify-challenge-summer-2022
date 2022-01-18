@@ -13,6 +13,7 @@ router.route('/').get(async (req, res) => {
     }
   })
 
+  // GET Individual group
   router.route('/:id').get(async (req, res) => {
     try {
         const groups = await Groups.findById(req.params.id);
@@ -24,17 +25,19 @@ router.route('/').get(async (req, res) => {
 // POST route add new group
   router.route('/addGroup').post(async (req, res) => {
     try {
+      // Constants
         const name = req.body.name;
-        const checkForExisitingGroup = Groups.find({"name": name})
+        // Find all groups with same name
+        const checkForExisitingGroup = await Groups.find({"name": name})
+        // If group exist then return group already exists 
         if(checkForExisitingGroup.length > 0){
           res.json(`Group ${name} Already Exists`);
         } else {
+          // Else make a new group
           const new_group = new Groups({name});
           await new_group.save();
           res.json(`Group ${name} Added`);
         }
-        
-        
     } catch(e){
         res.status(400).json("Error: " + e);
     }

@@ -147,7 +147,20 @@ describe("POST Routes", () => {
     const itemFour = await Inventory.find({name: "Test One", group: group[0]._id})
     expect(itemFour[0].quantity).toEqual(10)
   })
-
+  it('POST Inventory Same Group', async () => {
+    const group = await Groups.create({
+      name: "Group 10",
+    })
+    const groupDuplicate= {
+      name: "Group 10",
+    }
+    const res = await request(app)
+    .post('/api/groups/addGroup')
+    .send(groupDuplicate)
+    expect(res.statusCode).toEqual(200)
+    foundGroups = await Groups.find({name: "Group 10"})
+    expect(foundGroups.length).toEqual(1)
+  })
 
 });
 
@@ -163,8 +176,7 @@ describe("DELETE Routes", () => {
       name: "DeleteTest Item One",
       quantity: 21,
     })
-    ob = { quantity : 20 }
-    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    const res = await request(app).delete(`/api/inventory/${item._id}/20`)
     expect(res.statusCode).toEqual(200)
     const findItem = await Inventory.findById(item._id);
     expect(findItem.quantity).toEqual(1);
@@ -174,8 +186,7 @@ describe("DELETE Routes", () => {
       name: "DeleteTest Item One",
       quantity: 21,
     })
-    ob = { quantity : 22 }
-    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    const res = await request(app).delete(`/api/inventory/${item._id}/22`)
     expect(res.statusCode).toEqual(200)
     const findItem = await Inventory.findById(item._id);
     expect(findItem).toBe(null);
@@ -186,7 +197,7 @@ describe("DELETE Routes", () => {
       quantity: 21,
     })
     ob = { quantity : 21 }
-    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    const res = await request(app).delete(`/api/inventory/${item._id}/21`).send(ob)
     expect(res.statusCode).toEqual(200)
     const findItem = await Inventory.findById(item._id);
     expect(findItem).toBe(null);
@@ -197,7 +208,7 @@ describe("DELETE Routes", () => {
       quantity: 21,
     })
     ob = { quantity : 20 }
-    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    const res = await request(app).delete(`/api/inventory/${item._id}/20`)
     expect(res.statusCode).toEqual(200)
     const findItem = await Inventory.findById(item._id);
     expect(findItem.quantity).toEqual(1);
@@ -208,7 +219,7 @@ describe("DELETE Routes", () => {
       quantity: 21,
     })
     ob = { quantity : 22 }
-    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    const res = await request(app).delete(`/api/inventory/${item._id}/22`)
     expect(res.statusCode).toEqual(200)
     const findItem = await Inventory.findById(item._id);
     expect(findItem).toBe(null);
@@ -218,8 +229,7 @@ describe("DELETE Routes", () => {
       name: "DeleteTest Item One",
       quantity: 21,
     })
-    ob = { quantity : 21 }
-    const res = await request(app).delete(`/api/inventory/${item._id}`).send(ob)
+    const res = await request(app).delete(`/api/inventory/${item._id}/21`)
     expect(res.statusCode).toEqual(200)
     const findItem = await Inventory.findById(item._id);
     expect(findItem).toBe(null);
@@ -236,7 +246,7 @@ describe("DELETE Routes", () => {
   })
 });
 
-describe.only("PATCH Routes", () => {
+describe("PATCH Routes", () => {
   beforeAll(async () => {
     await Inventory.deleteMany();
     await Groups.deleteMany();
@@ -441,4 +451,34 @@ describe.only("PATCH Routes", () => {
     expect(findInvThree.name).toBe("Item Eighteen")
     expect(findInvThree.group).toEqual(GroupTest._id)
   })
+  it("PATCH same item ", async () => {
+    const GroupSix = await Groups.find({name: "Group Test"});
+    const MakeInventory = await Inventory.create({
+      name: "Item Ten",
+      quantity: 23,
+      group: GroupSix[0]._id
+    })
+    updatedData = {
+      name: MakeInventory.name,
+      quantity: MakeInventory.quantity,
+      group: GroupSix[0]._id
+    }
+    const res = await request(app).patch(`/api/inventory/update/${MakeInventory._id}`).send(updatedData)
+    expect(res.statusCode).toEqual(200);
+    findInv = await Inventory.findById(MakeInventory._id);
+    expect(findInv.name).toBe("Item Ten")
+    expect(findInv.quantity).toBe(23)
+    expect(findInv.group).toEqual(GroupSix[0]._id)
+
+  })
+    it("PATCH same group ", async () => {
+      const GroupSix = await Groups.create({name: "Group Fifteen"});
+      updatedData = {
+        groupname: "Group Fifteen",
+      }
+      const res = await request(app).patch(`/api/groups/update/${GroupSix._id}`).send(updatedData)
+      expect(res.statusCode).toEqual(200);
+      findGroup = await Groups.findById(GroupSix._id);
+      expect(findGroup.name).toBe("Group Fifteen")
+    })
 })
