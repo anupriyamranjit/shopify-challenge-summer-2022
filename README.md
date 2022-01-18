@@ -52,22 +52,26 @@ To see all current Inventory Items go to http://localhost:3000/viewItems
 
 
 ## Create Groups
-To create an Inventory Item go to http://localhost:3000/addGroups
+To create a group go to http://localhost:3000/addGroups
 and fill out all relevant fields
 
 ## Delete Groups 
 To delete groups go to http://localhost:3000/viewGroups,
-click the x icon above any of the groups
-
-This will delete the groups
+click the x icon above any of the groups. This will delete the group
 
 Note: My implementation fo delete group does not delete the items in that group rather it makes the item in to no groups 
 
 
 ## Update Groups
+To update groups  go to http://localhost:3000/viewGroups,
+click the pencil icon above any of the groups. This will allow you to edit thier name
+
+Note: If you update a groups name all inventory item in the group will also update its group name if you change it to another group that already exist it will merge everything in those 2 groups and merge duplicates items.
+
+
 
 ## Get All Groups 
-
+To view all groups  go to http://localhost:3000/viewGroups,
 
 
 
