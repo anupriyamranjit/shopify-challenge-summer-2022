@@ -80,7 +80,14 @@ To view all groups  go to http://localhost:3000/viewGroups,
 ## Testing 
 If you want to look at the tests I implemented throughout my building process look at routingTesting.js inside the testing folder 
 
-## Assumption Made about Project
+##
+## Assumption Made
+
+
+1. When updating quantity if quantity is 0 delete item 
+2. If you create an item that alreadly exist it will merge the quantity into the existing item
+3. 
+
 
 
 
