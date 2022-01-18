@@ -6,3 +6,4 @@ services:
       - "8080:8080"
     volumes:
       - ./:/usr/src/app
+    container_name: node-server-shopify
