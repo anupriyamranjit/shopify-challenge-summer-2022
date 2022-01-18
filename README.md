@@ -75,6 +75,16 @@ To view all groups  go to http://localhost:3000/viewGroups,
 
 
 
+# Notes about Implementation
+
+## Testing 
+If you want to look at the tests I implemented throughout my building process look at routingTesting.js inside the testing folder 
+
+## Assumption Made about Project
+
+
+
+
 
 
 
