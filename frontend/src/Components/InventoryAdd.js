@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import { InputLabel, MenuItem, Select, Button } from '@mui/material';
 import '../App.css';
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 
 function InventoryAdd() {
@@ -10,6 +11,7 @@ function InventoryAdd() {
   const [inventoryName, setInventoryName] = useState("");
   const [inventoryQuantity, setInventoryQuantity] = useState(1);
   const [groupPicked, setGroupPicked] = useState();
+  const history = useNavigate();
 
   const handleSubmit = () => {
     let finalObject = {};
@@ -26,7 +28,10 @@ function InventoryAdd() {
       }
     }
     axios.post("http://localhost:8080/api/inventory/addItem", finalObject)
-    .then((response) => console.log(response))
+    .then((response) => {
+      if(response.status === 200){
+        history(`/viewItems`);
+      }})
     .catch((e) => console.error(e))
   }
   useEffect(() => {

@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { InputLabel, MenuItem, Select, Button } from '@mui/material';
 import '../App.css';
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 
 function InventoryUpdate() {
@@ -12,6 +12,7 @@ function InventoryUpdate() {
   const [inventoryQuantity, setInventoryQuantity] = useState(1);
   const [groupPicked, setGroupPicked] = useState("");
   const { id } = useParams();
+  const history = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/groups")
@@ -45,7 +46,11 @@ function InventoryUpdate() {
       }
     }
     axios.patch(`http://localhost:8080/api/inventory/update/${id}`, finalObject)
-    .then((response) => console.log(response))
+    .then((response) => {
+      if(response.status === 200)
+      alert("Success")
+      history(`/viewItems`);
+    })
     .catch((e) => console.error(e))
   }
  

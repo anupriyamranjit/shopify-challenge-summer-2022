@@ -14,7 +14,6 @@ function InventoryList() {
   useEffect(() => {
       axios.get("http://localhost:8080/api/inventory")
       .then((response) => setItems(response.data))
-      console.log(items)
   }, [])
 
   const handleDelete = (id) => {

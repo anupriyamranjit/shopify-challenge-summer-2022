@@ -20,10 +20,13 @@ router.route('/addItem').post( async (req, res) => {
     try {
         // Constants 
         const name = req.body.name;
-        const quantity = req.body.quantity;
+        const quantity = parseInt(req.body.quantity);
         // group can be undefined
         const group = req.body.group;
 
+        if(typeof(name) !== "string" || typeof(quantity) !== "number"){
+            throw "Type not expected"
+        }
         // Variable Declaration
         let findItem;
         let new_item;
@@ -62,9 +65,15 @@ router.route('/:id').get(async (req, res) => {
 router.route('/:id/:quantity').delete(async (req, res) => {
     try {
         //Constants
-        const quantity = req.params.quantity;
+        const quantity = parseInt(req.params.quantity);
         const id = req.params.id
- 
+
+        if(typeof(quantity) !== "number"){
+            throw "Type not expected"
+        }
+        if(quantity < 0){
+            throw "Quantity must be positive"
+        }
         //Mongoose find by ID
         foundItem = await Inventory.findById(id);
 
@@ -88,7 +97,7 @@ router.route('/update/:id').patch(async (req, res) => {
     try {
         // Constants 
         const name = req.body.name;
-        const quantity = req.body.quantity;
+        const quantity = parseInt(req.body.quantity);
         const group = req.body.group;
         const id = req.params.id;
 
@@ -97,11 +106,18 @@ router.route('/update/:id').patch(async (req, res) => {
         let foundItem = await Inventory.findById(id);
 
         // If the update reduces the quantity to 0 or less delete the item
+        if(typeof(name) !== "string" || typeof(quantity) !== "number"){
+            console.log("here")
+            throw "Type not expected"
+        }
+
         if(quantity <= 0){
+            console.log("Here 1")
             foundItem.remove()
         }
         else {
             // Find if simliar items exist 
+            console.log("Here 2")
             findItems = await Inventory.find({"name": name, "group": group});
             if(findItems.length === 0){
                 // If it does not then change current item with new details
@@ -110,15 +126,14 @@ router.route('/update/:id').patch(async (req, res) => {
                 foundItem.group = group;
                 await foundItem.save()
             } else {
+                console.log("Here 3")
                 // If a similar item already exist then the update will merge them
                 if(findItems[0]._id.toString() !== id){
-                    console.log("Here")
-                    console.log(findItems[0]._id)
-                    console.log(id)
                     findItems[0].quantity += quantity;
                     await findItems[0].save()
                     await foundItem.remove()
                 } else {
+                    console.log("Here 4")
                     foundItem.name = name;
                     foundItem.quantity = quantity;
                     foundItem.group = group;

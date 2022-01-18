@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from "react";
 import TextField from '@mui/material/TextField';
-import { InputLabel, MenuItem, Select, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import '../App.css';
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 
 function InventoryUpdate() {
   const [groupName, setGroupName] = useState("");
   const { id } = useParams();
+  const history = useNavigate();
 
 useEffect(() => {
     async function fetch(){
         let group = await axios.get(`http://localhost:8080/api/groups/${id}`);
         setGroupName(group.data.name);
-        console.log(group)
     }
     fetch()
 },[])
@@ -23,7 +23,11 @@ useEffect(() => {
       let finalObject = {
         groupname: groupName,
       }
-    await axios.patch(`http://localhost:8080/api/groups/update/${id}`, finalObject)
+    const updated = await axios.patch(`http://localhost:8080/api/groups/update/${id}`, finalObject)
+    if(updated.status === 200){
+      alert("Success")
+      history("/viewGroups")
+    }
   }
  
     
