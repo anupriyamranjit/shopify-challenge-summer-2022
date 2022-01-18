@@ -79,14 +79,21 @@ To view all groups  go to http://localhost:3000/viewGroups,
 
 ## Testing 
 If you want to look at the tests I implemented throughout my building process look at routingTesting.js inside the testing folder 
+Additionally, I used an enviromental variable to change the database I was using for testing
 
-##
+## Guiding Philochiy 
+Merge when possible, whenever 2 items are in the same group/ both dont have a group and have the same name it merges the quantities together 
+
 ## Assumption Made
 
-
 1. When updating quantity if quantity is 0 delete item 
-2. If you create an item that alreadly exist it will merge the quantity into the existing item
-3. 
+2. If you create an item that already exist it will merge the quantity into the existing item
+3. All items must have quantity greater then 0 and have a none empty name
+4. If you delete more than or equal to the quantity avalible it will delete the item so items 
+5. 2 items cannot have the different prices in the same group or if they dont both have a group
+6. Deleting a group does not delete the items in the group but simply removes the group field from the items that were in the group
+7. Changing a group name if changing to the same as another group will merge all items between the 2 groups that have a common name
+8. 2 Groups cannot have the same name
 
 
 
