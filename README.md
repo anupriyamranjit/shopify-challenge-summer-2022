@@ -105,9 +105,9 @@ Merge when possible, whenever 2 items are in the same group/ both dont have a gr
 ## Endpoints for localhost:8080 the node-server
 - GET http://localhost:8080/api/inventory -> to get all inventory items
 - GET http://localhost:8080/api/inventory/:id -> to get specific item
--POST http://localhost:8080/api/inventory/addItem -> to add item
--DELETE http://localhost:8080/api/inventory/:id/:quantity -> to delete item
--PATCH http://localhost:8080/api/inventory/update/:id' -> to update inventory 
+- POST http://localhost:8080/api/inventory/addItem -> to add item
+- DELETE http://localhost:8080/api/inventory/:id/:quantity -> to delete item
+- PATCH http://localhost:8080/api/inventory/update/:id' -> to update inventory 
 
 - GET http://localhost:8080/api/groups -> to get all groups
 - GET http://localhost:8080/api/groups/:id -> to get specific group
