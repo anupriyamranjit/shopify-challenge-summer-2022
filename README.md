@@ -4,8 +4,12 @@ My project for Summer 2022 Backend Developer Role
 # Setup without Docker
 - git clone this repository
 - Download lastest version of node from https://nodejs.org/en/
-- cd into node-server run npm start
-- cd into frontend run npm start
+- cd into node-server 
+- run npm install
+- run npm start
+- cd into frontend 
+- run npm install
+- run npm start
 
 
 
@@ -99,8 +103,8 @@ Merge when possible, whenever 2 items are in the same group/ both dont have a gr
 
 
 ## Endpoints for localhost:8080 the node-server
-GET http://localhost:8080/api/inventory -> to get all inventory items
-GET http://localhost:8080/api/inventory/:id -> to get specific item
+- GET http://localhost:8080/api/inventory -> to get all inventory items
+- GET http://localhost:8080/api/inventory/:id -> to get specific item
 POST http://localhost:8080/api/inventory/addItem -> to add item
 DELETE http://localhost:8080/api/inventory/:id/:quantity -> to delete item
 PATCH http://localhost:8080/api/inventory/update/:id' -> to update inventory 
