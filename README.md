@@ -56,7 +56,7 @@ To see all current Inventory Items go to http://localhost:3000/viewItems
 
 
 ## Create Groups
-To create a group go to http://localhost:3000/addGroups
+To create a group go to http://localhost:3000/addGroup
 and fill out all relevant fields
 
 ## Delete Groups 
