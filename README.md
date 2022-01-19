@@ -1,5 +1,6 @@
 # Anupriyam's Shopify-Challenge-Summer-2022
 My project for Summer 2022 Backend Developer Role
+My extra feature I picked was "Ability to assign/remove inventory items to a named group/collection"
 
 # Setup without Docker
 - git clone this repository
